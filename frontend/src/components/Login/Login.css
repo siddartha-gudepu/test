@@ -1,0 +1,99 @@
+.Login{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:600px;
+    gap: 4rem;
+    position: relative;
+}
+
+.Login>div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.a-left{
+    gap: 2rem;
+}
+
+.a-left>img{
+    width: 5rem;
+    height: 5rem;
+    border-radius: 15%;
+}
+
+.webname>h1{
+    font-size: 3rem;
+    background: -webkit-linear-gradient(#051937,#129CEB);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.webname>h6{
+  font-size: 1.4rem;
+  align-items: center;  
+}
+
+.infoForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.infoinput{
+    border: 1rem;
+    outline: 1rem;
+    background-color: var(--inputColor);
+    border-radius: 8px;
+    padding: 20px;
+    flex: 1; 
+}
+
+.infoForm>div{
+    display: flex;
+    gap: 1rem;
+    height: 2rem;
+    width: 90%;
+}
+
+.infobutton{
+    width: 6rem;
+    height: 2rem;
+    align-self: flex-end;
+    background-image: var(--inputButton);
+}
+
+.authForm{
+    background-image: var(--BGI);
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+input{
+    color: whitesmoke;
+}
+.authForm>div{
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.button{
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    box-shadow: inset;
+}
+
+.auth{
+    font-size: 1.4rem;
+    background: -webkit-linear-gradient(white,#129CEB);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.signorlog:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
