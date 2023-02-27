@@ -23,9 +23,15 @@
     width: 7rem;
     height: 2rem;
     margin-top: 3rem;
-    align-self: flex-end;
+    position: relative;
+    left:120px;
     background-image: var(--inputButton);
   }
+
+  .logout-button:hover{
+    cursor: pointer;
+  }
+
   .ProfileImages{
     position: relative;
     display:flex;

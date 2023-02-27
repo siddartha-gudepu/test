@@ -1,12 +1,12 @@
 import React from "react";
-import "./Home.css";
+import "./Coding.css";
 import PostSide from "../../components/PostSide/PostSide";
 import ProfileLeft from "../../components/ProfileLeft/ProfileLeft";
 import RightSide from "../../components/RightSide/RightSide";
 
-const Home=()=>{
+const Coding=()=>{
     return(
-        <div className="Home">
+        <div className="Coding">
             <ProfileLeft/>
             <PostSide/>
             <RightSide/>
@@ -14,4 +14,4 @@ const Home=()=>{
     )
 }
 
-export default Home;
+export default Coding;

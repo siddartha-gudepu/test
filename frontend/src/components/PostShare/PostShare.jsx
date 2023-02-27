@@ -10,7 +10,7 @@ const PostShare=()=>{
                 <input type="text" placeholder="What's happening" />
 
             </div>
-            <button className=" button fc-button">Follow</button> 
+            <button className=" button fc-button">Search</button> 
         </div>
     )
 }

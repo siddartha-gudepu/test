@@ -1,0 +1,36 @@
+.infoForm{
+    background-image: var(--BGI);
+    border-radius: 0.5rem;
+}
+
+h3{
+    color: aliceblue;
+}
+
+textarea{
+    background-color: transparent;
+    border-color:aliceblue;
+    outline: none;
+    color: aliceblue;
+    border-radius: 0.3rem;
+}
+
+textarea::placeholder{
+    color: rgb(215, 206, 206);
+}
+
+select{
+    width: 100px;
+    background-color: transparent;
+    color: aliceblue;
+    border-radius: 5px;
+}
+option{
+    background-color:var(--BGI);
+    color:black;
+}
+
+.ask-Button{
+    background-image: var(--inputButton);
+    border-radius: 5px;
+}
