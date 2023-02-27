@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import Logo from "../../img/logo.jpg";
 import "./Login.css";
 const Login=()=>{
@@ -19,8 +20,8 @@ const Login=()=>{
                         <input type="text" placeholder='Password' className='infoinput' name='password'/>
                     </div>
                     <div>
-                        <span style={{fontSize:"12px"}}>Don't have a account.SignUp!</span>
-                        <button className='button infobutton' type="submit">Login</button>
+                        <span style={{fontSize:"12px"}}>Don't have a account.<Link to="/signup" className="sign">SignUp!</Link></span>
+                        <Link to="/home"><button className='button infobutton' type="submit">Login</button></Link>
                     </div>
 
                 </form>

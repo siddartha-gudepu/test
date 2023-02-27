@@ -1,0 +1,14 @@
+.infoInput{
+    background-color: transparent;
+    border-color: aliceblue;
+    border-radius: 10px;
+    color: aliceblue;
+}
+
+.infoForm{
+    color: aliceblue;
+}
+
+.infoButton{
+    background-image:var(--inputButton) ;
+}

@@ -1,0 +1,36 @@
+.RightSide{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.navIcons{
+    padding-left: 20px;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav{
+    padding-right: 50px;
+    font-size: 25px;
+}
+.nav:hover{
+    cursor: pointer;
+}
+
+
+.r-button{
+    height: 3rem;
+    width: 80%;
+    align-self: center;
+    background-image: var(--inputButton);
+    border-radius: 0.5rem;
+}
+
+.home{
+    color: aliceblue;
+}
+
+.r-button:hover{
+    cursor: pointer;
+}

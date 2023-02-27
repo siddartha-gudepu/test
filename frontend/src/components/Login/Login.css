@@ -97,3 +97,7 @@ input{
     cursor: pointer;
     text-decoration: underline;
 }
+
+.sign{
+    color: aliceblue;
+}

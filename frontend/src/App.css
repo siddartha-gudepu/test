@@ -21,3 +21,8 @@
 ::-webkit-scrollbar{
   display: none;
 }
+
+Link{
+  text-decoration: none;
+  color: aliceblue;
+}
