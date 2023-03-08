@@ -1,40 +1,41 @@
-.Signup{
+.Signup {
     display: flex;
     align-items: center;
     justify-content: center;
-    height:600px;
+    height: 100vh;
     gap: 4rem;
     position: relative;
 }
 
-.Signup>div{
+.Signup>div {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.a-left{
+
+.a-left {
     gap: 2rem;
 }
 
-.a-left>img{
+.a-left>img {
     width: 5rem;
     height: 5rem;
     border-radius: 15%;
 }
 
-.webname>h1{
+.webname>h1 {
     font-size: 3rem;
-    background: -webkit-linear-gradient(#051937,#129CEB);
+    background: -webkit-linear-gradient(#051937, #129CEB);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.webname>h6{
-  font-size: 1.4rem;
-  align-items: center;  
+.webname>h6 {
+    font-size: 1.4rem;
+    align-items: center;
 }
 
-.infoForm{
+.infoForm {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -42,62 +43,63 @@
     gap: 2rem;
 }
 
-.infoinput{
+.infoinput {
     border: 1rem;
     outline: 1rem;
     background-color: var(--inputColor);
     border-radius: 8px;
     padding: 20px;
-    flex: 1; 
+    flex: 1;
 }
 
-.infoForm>div{
+.infoForm>div {
     display: flex;
     gap: 1rem;
     height: 2rem;
     width: 90%;
 }
 
-.infobutton{
+.infobutton {
     width: 6rem;
     height: 2rem;
     align-self: flex-end;
     background-image: var(--inputButton);
 }
 
-.authForm{
+.authForm {
     background-image: var(--BGI);
     border-radius: 1rem;
     padding: 1rem;
 }
 
-input{
+input {
     color: whitesmoke;
 }
-.authForm>div{
+
+.authForm>div {
     width: 100%;
     align-items: center;
     justify-content: center;
 }
 
-.button{
+.button {
     height: 2.5rem;
     border-radius: 0.5rem;
     box-shadow: inset;
 }
 
-.auth{
+.auth {
     font-size: 1.4rem;
-    background: -webkit-linear-gradient(white,#129CEB);
+    background: -webkit-linear-gradient(white, #129CEB);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.signorlog:hover{
+.signorlog:hover {
     cursor: pointer;
     text-decoration: underline;
 }
 
-.login{
+.login {
     color: aliceblue;
 }

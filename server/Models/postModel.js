@@ -6,6 +6,10 @@ const postSchema = mongoose.Schema({
             type: String,
             required: true
         },
+        topic: {
+            type: String,
+            required: true
+        },
         question: {
             type: String,
             required: true
@@ -22,5 +26,5 @@ const postSchema = mongoose.Schema({
     }, { timestamps: true })
     // time stamps store the creation and updation of unstances of this schema
 
-const PostModel = mongoose.model("Post", postSchema);
+const Model = mongoose.model("Post", postSchema);
 export default PostModel
