@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { string } from "prop-types";
 
 const userSchema = mongoose.Schema({
-        email: {
+        username: {
             type: String,
             required: true
         },
@@ -10,6 +10,11 @@ const userSchema = mongoose.Schema({
             type: String,
             required: true
         },
+        email: {
+            type: String,
+            required: true
+        },
+
         firstname: {
             type: String,
             required: true
