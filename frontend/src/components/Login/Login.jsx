@@ -21,7 +21,7 @@ const Login=()=>{
                     </div>
                     <div>
                         <span style={{fontSize:"12px"}}>Don't have a account.<Link to="/signup" className="sign">SignUp!</Link></span>
-                        <Link to="/home"><button className='button infobutton' type="submit">Login</button></Link>
+                        <Link to="/home"><button className='button infobutton logbutton' type="submit">Login</button></Link>
                     </div>
 
                 </form>
