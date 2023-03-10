@@ -2,7 +2,25 @@ import React from "react";
 import {Link} from "react-router-dom";
 import Logo from "../../img/logo.jpg";
 import "./Login.css";
+const axios=require('axios');
 const Login=()=>{
+    const handlelog=async(e)=>{
+        e.preventDefault();
+        try{
+            await axios.post("/login",
+                {username:e.target.username,password:e.target.value},
+                {
+                    headers:{'Content-Type':'application/json'},
+                    withCredentials:true
+                }
+            ).then(function(response){
+                console.log(response.data);
+            })
+        }catch(err){
+            console.log(err);
+        }
+
+    }
     return(
         <div className='Login'>
             <div className='a-left'>
