@@ -1,14 +1,22 @@
-const express = require('express');
+import express from "express";
 const app = express();
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-import bcrypt from 'bcrypt'
+import bodyParser from 'body-parser'
+import mongoose from 'mongoose';
+import bcrypt from "bcrypt";
 
-mongoose.connect("mongodb://localhost:27107/projectdb", { useNewUrlParser: true });
-a
+import UserRoute from "./routes/UserRoute.js"
+import PostRoute from "./routes/PostRoute.js"
+import AuthRoute from "./routes/AuthRoute.js"
 
-import UserModel from './Models/userModels';
+
+
+import UserModel from './Models/userModels.js';
+
+
 app.use(bodyParser.json());
+
+mongoose.connect("mongodb+srv://adithyaadiraju:HZRneBO4OOmRHDVE@cluster0.dtsjx5q.mongodb.net/key?retryWrites=true&w=majority").
+then(() => app.listen(5000, () => console.log("listening at 5000")));
 
 app.post('/signup', async(req, res) => {
     const data = req.body;
@@ -18,8 +26,17 @@ app.post('/signup', async(req, res) => {
     const hashedPass = await bcrypt.hash(data.password, salt);
     const firstName = data.firstname;
     const lastName = data.lastname;
-    const newUser = new UserModel({ username: userName, email: email, password: hashedPass, firstname: firstName, lastname: lastName });
+    UserModel.findOne({ username: userName }, function(err, row) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.status(500).json({ message: "username already exists" });
+
+        }
+    })
+    var newUser = new UserModel({ username: userName, email: email, password: hashedPass, firstname: firstName, lastname: lastName });
     try {
+
         await newUser.save();
         res.status(200).json(newUser);
     } catch (error) {
@@ -32,7 +49,7 @@ app.post('/login', async(req, res) => {
     const userName = data.userName;
     const password = data.password;
     try {
-        const user = await userModel.findOne({ username: userName });
+        const user = await UserModel.findOne({ username: userName });
         if (user) {
             const validity = await bcrypt.compare(password, user.password);
             validity ? res.status(200).json(user) : res.status(400).json("Wrong password");
@@ -74,9 +91,10 @@ app.post('/login', async(req, res) => {
 //     }
 // });
 
-app.use('/user', UserRoute)
-app.use('/post', PostRoute)
+app.use('/user', UserRoute);
+app.use('/post', PostRoute);
+app.use('/auth', AuthRoute);
 
-app.listen(3000, () => {
-    console.log('Server listening on port 3000');
-});
+
+// vvBpTXY8OSuf4YD2
+// HZRneBO4OOmRHDVE

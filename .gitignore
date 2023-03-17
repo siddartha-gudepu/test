@@ -1,0 +1,4 @@
+frontend/*.json
+frontend/node_modules
+server/*.json
+server/node_modules
