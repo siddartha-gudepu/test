@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { string } from "prop-types";
+// import { string } from "prop-types";
 
 const postSchema = mongoose.Schema({
         userId: {
@@ -26,5 +26,11 @@ const postSchema = mongoose.Schema({
     }, { timestamps: true })
     // time stamps store the creation and updation of unstances of this schema
 
-const Model = mongoose.model("Post", postSchema);
-export default PostModel
+
+postSchema.methods.toggle = function(fieldName, callback) {
+    this[fieldName] = !this[fieldName];
+    this.save(callback);
+};
+
+const PostModel = mongoose.model("Post", postSchema);
+export default PostModel;

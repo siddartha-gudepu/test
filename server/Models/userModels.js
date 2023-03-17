@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { string } from "prop-types";
+// import { string } from "prop-types";
 
 const userSchema = mongoose.Schema({
         username: {
@@ -32,7 +32,7 @@ const userSchema = mongoose.Schema({
         role: String,
         followers: [],
         following: [],
-        save: [],
+        saved: [],
         answered: []
 
 

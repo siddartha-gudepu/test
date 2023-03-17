@@ -1,6 +1,6 @@
 // copy paste
-import UserModel from "../Models/userModel.js";
-import bcrypt from 'bcrypt'
+import UserModel from "../Models/userModels.js";
+import bcrypt from "bcrypt";
 export const getUser = async(req, res) => {
     const id = req.params.id;
     try {
@@ -87,7 +87,7 @@ export const UnFollowUser = async(req, res) => {
                 await followingUser.updateOne({ $pull: { following: id } });
                 res.status(200).json("User unfollowed");
             } else {
-                res.status(403).json("User is already follwed by you");
+                res.status(403).json("User is already unfollwed by you");
             }
         } catch (error) {
             res.status(500).json(error);

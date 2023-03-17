@@ -1,12 +1,12 @@
 import PostModel from "../Models/postModel.js";
 import mongoose from "mongoose";
-import UserModel from '../Models/userModel.js';
+import UserModel from '../Models/userModels.js';
 
 export const createPost = async(req, res) => {
     const newPost = new PostModel(req.body);
     try {
         await newPost.save();
-        res.status(200).json("post created");
+        res.status(200).json(newPost);
     } catch (error) {
         res.status(500).json(error);
     }
@@ -56,6 +56,81 @@ export const deletePost = async(req, res) => {
         res.status(500).json(error);
     }
 }
+export const savePost = async(req, res) => {
+    const id = req.params.id;
+    const { userId } = req.body;
+    try {
+        // const post = await PostModel.findById(id);
+        const user = await UserModel.findById(userId);
+        if (!user.saved.includes(id)) {
+            user.updateOne({ $push: { saved: id } }, { new: true }, function(error, updatedDocument) {
+                if (error) {
+                    console.error(error);
+                } else {
+                    console.log(updatedDocument);
+                }
+            });
+        } else {
+            res.status(403).json("this post is already saved");
+        }
+
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+export const removesavedPost = async(req, res) => {
+    const id = req.params.id;
+    const { userId } = req.body;
+    try {
+        // const post = await PostModel.findById(id);
+        const user = await UserModel.findById(userId);
+        if (user.saved.includes(id)) {
+            user.updateOne({ $pull: { saved: id } }, { new: true }, function(error, updatedDocument) {
+                if (error) {
+                    console.error(error);
+                } else {
+                    console.log(updatedDocument);
+                }
+            });
+        } else {
+            res.status(403).json("this post is not saved");
+        }
+
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+export const solved = async(req, res) => {
+    const id = req.params.id;
+    const { userId } = req.body;
+    try {
+        const post = await PostModel.findById(id);
+        if (post.userId == userId) {
+            await post.toggle('solved', function(err, updated) {
+                if (err) {
+                    console.error(err);
+                } else {
+                    console.log(updated);
+                    try {
+                        updated.save()
+                    } catch (error) {
+                        res.status(500).json(error);
+                    }
+
+                }
+            });
+            res.status(200).json("complete");
+        } else {
+            res.status(403).json("action forbidden");
+        }
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+
 
 export const likePost = async(req, res) => {
     const id = req.params.id;

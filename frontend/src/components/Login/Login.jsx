@@ -2,7 +2,17 @@ import React from "react";
 import {Link} from "react-router-dom";
 import Logo from "../../img/logo.jpg";
 import "./Login.css";
+import axios from "axios";
 const Login=()=>{
+    const handleLogin=async(e)=>{
+        try{
+            await axios.post("/login",{username:e.target.username,password:e.target.password}).then(function(response){
+                console.log(response.data);
+            })
+        }catch(err){
+            console.log(err);
+        }
+    }
     return(
         <div className='Login'>
             <div className='a-left'>
@@ -13,7 +23,7 @@ const Login=()=>{
                 </div>
             </div>
             <div className='a-right'>
-                <form className='infoForm authForm'>
+                <form className='infoForm authForm' onSubmit={handleLogin}>
                     <h3 className='auth'>Login</h3>
                     <div><input type="text" placeholder='Username' className='infoinput' name="username"/></div>
                     <div>
