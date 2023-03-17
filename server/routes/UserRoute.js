@@ -1,7 +1,7 @@
 // copy paste
-import { deleteUser, followUser, getUser, postsAnswered, UnFollowUser, updateUser } from '../Controllers/UserController';
+import { deleteUser, followUser, getUser, postsAnswered, UnFollowUser, updateUser } from '../Controllers/UserController.js';
 
-const express = require('express');
+import express from "express";
 
 const router = express.Router();
 

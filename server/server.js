@@ -1,22 +1,20 @@
 import express from "express";
-const app = express();
-import bodyParser from 'body-parser'
+
+import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import bcrypt from "bcrypt";
-
-import UserRoute from "./routes/UserRoute.js"
-import PostRoute from "./routes/PostRoute.js"
-import AuthRoute from "./routes/AuthRoute.js"
-
-
-
+import UserRoute from "./routes/UserRoute.js";
+import PostRoute from "./routes/PostRoute.js";
+import AuthRoute from "./routes/AuthRoute.js";
 import UserModel from './Models/userModels.js';
 
+const app = express();
 
 app.use(bodyParser.json());
+mongoose.set('strictQuery', true);
 
-mongoose.connect("mongodb+srv://adithyaadiraju:HZRneBO4OOmRHDVE@cluster0.dtsjx5q.mongodb.net/key?retryWrites=true&w=majority").
-then(() => app.listen(5000, () => console.log("listening at 5000")));
+mongoose.connect("mongodb+srv://adithyaadiraju:HZRneBO4OOmRHDVE@cluster0.dtsjx5q.mongodb.net/key?retryWrites=true&w=majority")
+app.listen(5000, () => console.log("listening at port 5000 ..."));
 
 app.post('/signup', async(req, res) => {
     const data = req.body;
