@@ -2,10 +2,10 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
 
 mongoose.connect("mongodb://localhost:27107/projectdb", { useNewUrlParser: true });
-a
+
 
 import UserModel from './Models/userModels';
 app.use(bodyParser.json());

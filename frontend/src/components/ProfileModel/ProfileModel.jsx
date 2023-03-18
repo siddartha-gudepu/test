@@ -1,24 +1,23 @@
 import { Modal, useMantineTheme } from '@mantine/core';
+import { useState } from 'react';
 import "./ProfileModel.css";
-const axios=require('axios');
+import axios from "axios";
 
 function ProfileModel({modelOpened,setModelOpened}) {
   const theme = useMantineTheme();
-  const changeProfile=async(e)=>{
-    e.preventDefault()
-    try{
-      const response=await axios.post('/change',
-        {firstname:e.target.firstName,lastName:e.target.lastName,WorksAT:e.target.WorksAT,livesIN:e.target.livesIN,Country:e.target.Country},
-        {
-          headers:{'Content-Type':'application/json'},
-          withCredentials:true
-        }
-      ).then(function(response){
-        console.log(response.data);
-      })
-    }catch(err){
+  const [data,setdata]=useState({firstname:"",lastname:"",WorksAT:"",Country:"",profileImg:"",livesIN:""});
+
+  const handlechange=(e)=>{
+      setdata({...data,[e.target.name]:e.target.value})
+  }
+  const changeProfile=(e)=>{
+    e.preventDefault();
+    axios.post("http://localhost:5000/profilemodel",{data}).then(function(response){
+      console.log(response.data);
+    }).catch((err)=>{
       console.log(err);
-    }
+    })
+
   }
 
 
@@ -34,8 +33,8 @@ function ProfileModel({modelOpened,setModelOpened}) {
     <form className='infoForm' onSubmit={changeProfile}>
       <h3>your info</h3>
       <div>
-        <input type="text" className="infoInput" name="firstName" placeholder="First Name"/>
-        <input type="text" className="infoInput" name="lastName" placeholder="Last Name"/>
+        <input type="text" className="infoInput" name="firstname" placeholder="First Name"/>
+        <input type="text" className="infoInput" name="lastname" placeholder="Last Name"/>
       </div>
       <div><input type="text" className="infoInput" name="WorksAT" placeholder="Works at"/></div>
       <div>

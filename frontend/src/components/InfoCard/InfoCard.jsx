@@ -5,7 +5,8 @@ import ProfileModel from '../ProfileModel/ProfileModel';
 import Cover from "../../img/cover.png";
 import Profile from '../../img/profileimg.jpg';
 const InfoCard=()=>{
-  const [modelOpened,setModelOpened]=useState(false)
+  const [modelOpened,setModelOpened]=useState(false);
+  const [ask,setask]=useState({})
   return(
     <div className="InfoCard">
  

@@ -3,22 +3,18 @@ import "./ShareModel.css";
 const axios=require('axios');
 
 function ShareModel({modelOpened,setModelOpened}) {
+  const [data,setdata]=useState({ques:"",cat:""})
+  const handlechange=(e)=>{
+    setdata({...data,[e.target.value]:e.target.value})
+  }
   const theme = useMantineTheme();
-  const ask=async(e)=>{
+  const ask=(e)=>{
     e.preventDefault();
-    try{
-      const response=await axios.post("/ask",
-        {ques:e.target.value,category:e.target.cat},
-        {
-          headers:{'Content-Type':'application/json'},
-          withCredentials:true
-        }
-      ).then(function(ask){
-        console.log(ask.data);
-      })
-    }catch(err){
+    axios.post("http://localhost:5000/ask",{data}).then(function(response){
+      console.log('response.data')
+    }).catch((err)=>{
       console.log(err);
-    }
+    })
   }
 
   return (

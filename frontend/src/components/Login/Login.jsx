@@ -1,25 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import {Link} from "react-router-dom";
 import Logo from "../../img/logo.jpg";
 import "./Login.css";
-const axios=require('axios');
+import axios from "axios";
 const Login=()=>{
-    const handlelog=async(e)=>{
+    const [data,setdata]=useState({username:'',password:""});
+    const handlechange=(e)=>{
+        setdata({...data,[e.target.name]:e.target.value});
+    }
+    const handlelog=(e)=>{
         e.preventDefault();
-        try{
-            await axios.post("/login",
-                {username:e.target.username,password:e.target.value},
-                {
-                    headers:{'Content-Type':'application/json'},
-                    withCredentials:true
-                }
-            ).then(function(response){
-                console.log(response.data);
-            })
-        }catch(err){
+        axios.post('http://localhost:5000/log',{data}).then(function(response){
+            console.log(response.data);
+        }).catch((err)=>{
             console.log(err);
-        }
-
+        })
     }
     return(
         <div className='Login'>
@@ -31,11 +26,11 @@ const Login=()=>{
                 </div>
             </div>
             <div className='a-right'>
-                <form className='infoForm authForm'>
+                <form className='infoForm authForm' onSubmit={handlelog}>
                     <h3 className='auth'>Login</h3>
-                    <div><input type="text" placeholder='Username' className='infoinput' name="username"/></div>
+                    <div><input type="text" placeholder='Username' className='infoinput' name="username" onChange={handlechange}/></div>
                     <div>
-                        <input type="text" placeholder='Password' className='infoinput' name='password'/>
+                        <input type="text" placeholder='Password' className='infoinput' name='password'onChange={handlechange}/>
                     </div>
                     <div>
                         <span style={{fontSize:"12px"}}>Don't have a account.<Link to="/signup" className="sign">SignUp!</Link></span>
