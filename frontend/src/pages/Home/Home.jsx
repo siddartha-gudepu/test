@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Home.css";
 import PostSide from "../../components/PostSide/PostSide";
 import ProfileLeft from "../../components/ProfileLeft/ProfileLeft";
@@ -7,15 +7,16 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const Home=()=>{
-    useEffect(async ()=>{
-        try{
-            await axios.get("/getPost").then(function(response){
-                console.log(response.data);
-            })
-        }catch(err){
-            console.log(err);
+    const [post,setpost]=useState(null);
+    useEffect(()=>{
+
+        const getData = async () => {
+            const res = await axios.get("http://localhost:5000/post/641ff2f1be3a463df8fd9a53/timeline")
+            console.log(res.data)
         }
-    })
+
+        getData()
+    }, [])
     return(
         <div className="Home">
             <ProfileLeft/>

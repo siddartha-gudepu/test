@@ -1,17 +1,31 @@
 import Logo from "../../img/logo.jpg";
 import {Link} from "react-router-dom";
-import React from "react";
+import React, { useState } from "react";
 import "./Signup.css";
 import axios from "axios";
+import {useCookies} from "react-cookie";
 
 const Signup=()=>{
-    const handleSignup=async(e)=>{
-        try{
-            await axios.post("/signup",{firstname:e.target.firstname,lastname:e.target.lastname,username:e.target.username,email:e.target.email,password:e.target.password}).then(function(response){
+    // const [userdata,setuser,removeuser]=useCookies({});
+    const [data,setdata]=useState({firstname:'',lastname:"",email:"",password:"",username:"",confirmpassword:""})
+    const handleChange=(e)=>{
+        setdata({...data,[e.target.name]:e.target.value});
+        console.log(data);
+    }    
+    const handleSignup=(e)=>{
+        e.preventDefault();
+            console.log("Request sent")
+            if (data.password===data.confirmpassword){
+            axios.post("http://localhost:5000/signup",data).then(function(response){
+                console.log("Request sent")
                 console.log(response.data);
+                // setuser(response.data);
+            }).catch((err)=>{
+                console.log(err);
             })
-        }catch(err){
-            console.log(err);
+        }
+        else{
+            console.log("confirm password is wrong");
         }
 
     }
@@ -28,19 +42,19 @@ const Signup=()=>{
                 <form className='infoForm authForm' onSubmit={handleSignup}>
                     <h3 className='auth'>Sign Up</h3>
                     <div>
-                        <input type="text" placeholder='Firstname' className='infoinput' name="firstname"/>
-                        <input type="text" placeholder='Lastname' className='infoinput' name="lastname"/>
+                        <input type="text" placeholder='Firstname' className='infoinput' name="firstname" onChange={handleChange}/>
+                        <input type="text" placeholder='Lastname' className='infoinput' name="lastname" onChange={handleChange}/>
                     </div>
-                    <div><input type="text" placeholder='Username' className='infoinput' name="username"/></div>
-                    <div><input type="email" placeholder='Email' className='infoinput' name="email"/></div>
+                    <div><input type="text" placeholder='Username' className='infoinput' name="username" onChange={handleChange}/></div>
+                    <div><input type="email" placeholder='Email' className='infoinput' name="email" onChange={handleChange}/></div>
                     <div>
-                        <input type="password" placeholder='Password' className='infoinput' name='password'/>
-                        <input type="password" placeholder='Confirm Password' className='infoinput' name='confirmpassword'/>
+                        <input type="password" placeholder='Password' className='infoinput' name='password'onChange={handleChange}/>
+                        <input type="password" placeholder='Confirm Password' className='infoinput' name='confirmpassword' onChange={handleChange}/>
                     </div>
                     <div>
-                        <span style={{fontSize:"12px"}}>Already have an account.<Link to="/" className="login">Login!</Link></span>
+                        <span style={{fontSize:"12px"}}>Already have an account. Login!</span>
                     </div>
-                    <Link to="/home"><button className='button infobutton' type="submit">SignUp</button></Link>
+                    <button className='button infobutton' type="submit">SignUp</button>
                 </form>
             </div>
         </div>

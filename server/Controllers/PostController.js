@@ -3,7 +3,13 @@ import mongoose from "mongoose";
 import UserModel from '../Models/userModels.js';
 
 export const createPost = async(req, res) => {
-    const newPost = new PostModel(req.body);
+
+    const userId = req.body.userId;
+    const question = req.body.data.question;
+    const topic = req.body.data.topic;
+    const newPost = new PostModel({ userId: userId, question: question, topic: topic });
+
+
     try {
         await newPost.save();
         res.status(200).json(newPost);
@@ -191,34 +197,72 @@ export const deleteAnswer = async(req, res) => {
 }
 
 export const getTimelinePosts = async(req, res) => {
+    // const userId = req.params.id;
+
+    // try {
+
+    //     const currentUserPosts = await PostModel.find({ userId: userId });
+    //     const followingPosts = await UserModel.aggregate([{
+    //             $match: {
+    //                 _id: new mongoose.Types.ObjectId(userId)
+    //             }
+    //         },
+    //         {
+    //             $lookup: {
+    //                 from: "posts",
+    //                 localField: "following",
+    //                 foreignField: "userId",
+    //                 as: "followingPosts"
+    //             }
+    //         },
+    //         {
+    //             $project: {
+    //                 followingPosts: 1,
+    //                 _id: 0
+    //             }
+    //         }
+    //     ])
+    //     res.status(200).json(currentUserPosts.concat(...followingPosts[0].followingPosts).sort((a, b) => {
+    //         return b.createdAt - a.createdAt;
+    //     }));
+    // } catch (error) {
+    //     res.status(500).json(error);
+    // }
+
     const userId = req.params.id;
 
     try {
-        const currentUserPosts = await PostModel.find({ userId: userId });
-        const followingPosts = await UserModel.aggregate([{
-                $match: {
-                    _id: new mongoose.Types.ObjectId(userId)
-                }
-            },
-            {
-                $lookup: {
-                    from: "posts",
-                    localField: "following",
-                    foreignField: "userId",
-                    as: "followingPosts"
-                }
-            },
-            {
-                $project: {
-                    followingPosts: 1,
-                    _id: 0
-                }
-            }
-        ])
-        res.status(200).json(currentUserPosts.concat(...followingPosts[0].followingPosts).sort((a, b) => {
-            return b.createdAt - a.createdAt;
-        }));
-    } catch (error) {
-        res.status(500).json(error);
+
+        const user = await UserModel.findById(userId);
+        const following = user.following;
+
+        var posts = [];
+        for (let user of following) {
+            const userposts = await PostModel.find({ userId: user });
+            posts = posts.concat(userposts);
+            console.log(posts);
+        }
+        // following.forEach(async(followedUserId) => {
+
+        // const userposts = await PostModel.find({ userId: followedUserId });
+        // posts = posts.concat(userposts);
+
+        // });
+
+        console.log("posts", posts);
+
+        // Sort the posts by their creation time
+        posts.sort((a, b) => b.created_at - a.created_at);
+
+        res.status(200).json(posts);
+    } catch (err) {
+        res.status(501).json(err);
+
     }
+
+
+
+
+
+
 }

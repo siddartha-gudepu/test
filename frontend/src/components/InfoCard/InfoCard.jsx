@@ -4,8 +4,9 @@ import "./InfoCard.css";
 import ProfileModel from '../ProfileModel/ProfileModel';
 import Cover from "../../img/cover.png";
 import Profile from '../../img/profileimg.jpg';
+import axios from 'axios';
 const InfoCard=()=>{
-  const [modelOpened,setModelOpened]=useState(false)
+  const [modelOpened,setModelOpened]=useState(false);
   return(
     <div className="InfoCard">
  
@@ -29,7 +30,7 @@ const InfoCard=()=>{
         <span><b>Studies at </b></span>
         <span>NITAP</span>
       </div>
-      <Link to="/profile" className='profile'><button className="button logout-button">view profile</button></Link>
+      <button className="button logout-button" >view profile</button>
     </div>
   )
 }

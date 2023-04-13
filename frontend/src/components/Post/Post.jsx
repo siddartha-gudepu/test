@@ -7,11 +7,11 @@ const Post=({data})=>{
         <div className="Post">
             <div className="use">
                 <img src={pro} alt="" />
-                <span><b>{data.name}</b></span>
+                <span><b>{data.username}</b></span>
             </div>
             <h1>{data.ques}</h1>
             <div className="postReact">
-                {data.like?<i class="fa-solid fa-heart interact"></i>:<i class="fa-regular fa-heart interact"></i>}
+                <i class="fa-solid fa-heart interact"></i>
                 <i class="fa-regular fa-comments interact"></i>
             </div>
             <span style={{color:"var(--grey)",fontSize:"12px"}}>{data.likes} likes</span>

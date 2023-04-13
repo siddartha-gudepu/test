@@ -3,6 +3,7 @@ import "./College.css";
 import PostSide from "../../components/PostSide/PostSide";
 import ProfileLeft from "../../components/ProfileLeft/ProfileLeft";
 import RightSide from "../../components/RightSide/RightSide";
+import axios from "axios";
 
 const College=()=>{
     useEffect(async()=>{

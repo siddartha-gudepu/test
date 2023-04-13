@@ -13,7 +13,7 @@ const RightSide=()=>{
     return(
         <div className="RightSide">
             <div className="navIcons">
-                <Link to="/home" className="home"><i class="fa-solid fa-house nav" ></i></Link>
+                <i class="fa-solid fa-house nav" ></i>
                 <i class="fa-solid fa-gear nav" onClick={()=>settopic(false)}></i>
             </div>
             {!topic && <Settings topic={topic} settopic={settopic}/>}

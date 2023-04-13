@@ -1,15 +1,23 @@
 import { Modal, useMantineTheme } from '@mantine/core';
 import "./ShareModel.css";
 import axios from 'axios';
+import { useState } from 'react';
 
 function ShareModel({modelOpened,setModelOpened}) {
   const theme = useMantineTheme();
-  const handlePost=async(e)=>{
-    try{
-      await axios.put("/post",{ques:e.target.ques,cato:e.target.cato})
-    }catch(err){
+
+  const handleSubmit=(evt)=>{
+    evt.preventDefault();
+
+    const question = evt.target.question.value ;
+    const topic =evt.target.topic.value;
+    const data={question,topic};
+    console.log(data)
+    axios.post("http://localhost:5000/post/",{data,userId:"641ff2f1be3a463df8fd9a53"}).then(function(response){
+      console.log(response)
+    }).catch((err)=>{
       console.log(err);
-    }
+    })
   }
 
   return (
@@ -21,19 +29,16 @@ function ShareModel({modelOpened,setModelOpened}) {
       opened={modelOpened}
       onClose={()=>setModelOpened(false)}
     >
-    <form className='infoForm' onSubmit={handlePost}>
+    <form className='infoForm' onSubmit={handleSubmit}>
       <h3>Ask question</h3>
-      <div>
-        <textarea className='infoInput' rows='4' cols="50" placeholder="ask your question..." name="ques"></textarea>
-      </div>
-      <select className='topic' name="cato">
+      <textarea className='infoInput' rows='4' cols="50" placeholder="ask your question..." name="question"></textarea>
+      <select className='topic' name="topic">
         <option value="college">college</option>
         <option value="coding">coding</option>
         <option value="hostel">hostel</option>
         <option value="events">events</option>
       </select>
-
-      <button className="button ask-Button">Ask</button>
+      <button className="button ask-Button" type="submit">Ask</button>
     </form>
     </Modal>
   );

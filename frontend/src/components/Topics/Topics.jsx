@@ -10,12 +10,10 @@ const Topics=()=>{
             {Topic.map((top)=>{
                 return(
                     <div className='top'>
-                        <Link to={`/${top.name}` }>
                             <button className='t-button'>
                                 <span>{top.name}</span><br/>
                                 <span>{top.ques}</span>
                             </button>
-                        </Link>
                     </div>
                 )
             })}
