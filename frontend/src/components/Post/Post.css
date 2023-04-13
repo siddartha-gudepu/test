@@ -1,52 +1,77 @@
-.Post{
+.Post {
     display: flex;
     flex-direction: column;
     padding: 1rem;
     background-image: var(--BGI);
     border-radius: 1rem;
-    gap:1rem;
-  }
-  
-  .Post>img{
+    gap: 1rem;
+}
+
+.answer {
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 17px;
+    border: none;
+    outline: none;
+    width: 80%;
+    color: aliceblue;
+}
+
+.answerbutton {
+    height: 50px;
+    width: 50px;
+    background-color: transparent;
+    border: none;
+}
+
+i {
+    width: 40px;
+    height: 40px;
+    color: aliceblue;
+}
+
+.Post>img {
     width: 100%;
     max-height: 20rem;
     object-fit: cover;
     border-radius: 0.5rem;
-  }
-  
-  .postReact{
+}
+
+.postReact {
     display: flex;
     align-items: flex-start;
-    gap:1.5rem;
-  }
+    gap: 1.5rem;
+}
 
-.interact{
+.interact {
     cursor: pointer;
 }
-.use>img{
-  margin: 0.3rem;
+
+.use>img {
+    margin: 0.3rem;
 }
 
-.use>span{
-  position: relative;
-  bottom:10px;
+.use>span {
+    position: relative;
+    bottom: 10px;
 }
 
-.comment>input{
-  background-color: transparent;
-  border-radius: 10px;
-  padding: 10px;
-  font-size: 17px;
-  border: none;
-  outline: none;
-  width: 80%;
+.comment>input {
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 17px;
+    border: none;
+    outline: none;
+    width: 80%;
 }
 
-.comment>img{
-  position: relative;
-  top:10px;
+.comment>img {
+    position: relative;
+    top: 10px;
 }
 
-.icomment:hover{
-  cursor: pointer;
+.icomment:hover {
+    cursor: pointer;
 }

@@ -7,12 +7,15 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const Home=()=>{
-    const [post,setpost]=useState(null);
+    const [post,setpost]=useState([]);
     useEffect(()=>{
 
         const getData = async () => {
             const res = await axios.get("http://localhost:5000/post/641ff2f1be3a463df8fd9a53/timeline")
             console.log(res.data)
+            setpost(res.data)
+            console.log("its post")
+            console.log(post)
         }
 
         getData()
@@ -20,7 +23,7 @@ const Home=()=>{
     return(
         <div className="Home">
             <ProfileLeft/>
-            <PostSide/>
+            <PostSide post={post}/>
             <RightSide/>
         </div>
     )

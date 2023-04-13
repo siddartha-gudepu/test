@@ -7,7 +7,7 @@ const PostSide=(props)=>{
     return(
         <div className='PostSide'>
             <PostShare/>
-            <Posts/>
+            <Posts post={props.post}/>
         </div>
     )
 }

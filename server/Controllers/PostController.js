@@ -31,6 +31,25 @@ export const getPost = async(req, res) => {
     }
 };
 
+export const topicPosts = async(req, res) => {
+    const topic = req.body.topic;
+    try {
+        const posts = await PostModel.find({ topic: topic });
+        res.status(200).json(posts);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
+export const userPosts = async(req, res) => {
+    const userid = req.body.userid;
+    try {
+        const posts = await PostModel.find({ userId: userid });
+        res.status(200).json(posts);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
 export const updatePost = async(req, res) => {
     const postId = req.params.id;
     const { userId } = req.body;
@@ -156,14 +175,14 @@ export const likePost = async(req, res) => {
 }
 export const answerPost = async(req, res) => {
     const id = req.params.id;
-    const { userId } = req.body;
+    const userId = req.body.userId;
+    const answer = req.body.answer;
+    const data = { userId, answer };
     try {
         const post = await PostModel.findById(id);
-        const answer = new PostModel(req.body);
         const user = await UserModel.findById(userId);
         try {
-            await answer.save();
-            await post.updateOne({ $push: { answers: answer } });
+            await post.updateOne({ $push: { answers: data } });
             await user.updateOne({ $push: { answered: answer } });
             res.status(200).json("answer posted");
         } catch (error) {

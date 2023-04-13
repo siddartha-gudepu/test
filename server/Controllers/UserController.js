@@ -1,5 +1,7 @@
 // copy paste
 import UserModel from "../Models/userModels.js";
+import PostModel from "../Models/postModel.js";
+
 import bcrypt from "bcrypt";
 export const getUser = async(req, res) => {
     const id = req.params.id;
@@ -17,6 +19,22 @@ export const getUser = async(req, res) => {
 
 };
 
+
+export const search = async(req, res) => {
+    const username = req.body.username;
+    try {
+        const user = await UserModel.findOne({ username: username });
+        if (user) {
+            const { password, ...otherDetails } = user._doc;
+            res.status(200).json(otherDetails);
+        } else {
+            res.status(404).json("no such user exists");
+        }
+    } catch (error) {
+        res.status(500).json(error);
+    }
+
+};
 export const updateUser = async(req, res) => {
     const id = req.params.id;
     const { currentUserId, password } = req.body;
@@ -101,6 +119,7 @@ export const deleteUser = async(req, res) => {
     const { currentUserId } = req.body;
     if (currentUserId == id) {
         try {
+            await PostModel.deleteMany({ userId: id });
             await UserModel.findByIdAndDelete(id);
             res.status(200).json("user deleted");
         } catch (error) {
@@ -110,3 +129,66 @@ export const deleteUser = async(req, res) => {
         res.status(403).json("access denied");
     }
 }
+
+export const suggestions = async(req, res) => {
+    const id = req.params.id;
+    try {
+        let suggestions = [];
+        const user = await UserModel.findById(id);
+        const followers = user.followers;
+        const following = user.following;
+        // following.forEach(async element => {
+        //     const user = await UserModel.findById(element);
+        //     suggestions = suggestions.concat(user.following);
+        // });
+
+        for (let element of following) {
+            const user = await UserModel.findById(element);
+            suggestions = suggestions.concat(user.following);
+        }
+
+        for (let follower of followers) {
+            const index = following.findIndex((item) => item === follower);
+            if (index < 0) {
+                suggestions = suggestions.push(follower);
+            }
+        }
+
+        // suggestions = suggestions.filter(distinct);
+        const uniqsuggestions = [...new Set(suggestions)];
+
+
+        const currentuserindex = uniqsuggestions.findIndex((item) => item === id);
+
+        uniqsuggestions.splice(currentuserindex, 1);
+        res.status(200).json(uniqsuggestions);
+
+    } catch (error) {
+        res.status(500).json(error);
+    }
+
+};
+
+export const changePassword = async(req, res) => {
+    const id = req.params.id;
+    const { oldpassword, newpassword } = req.body;
+    const user = await UserModel.findById(id);
+    if (user) {
+        try {
+            if (oldpassword) {
+                const validity = await bcrypt.compare(oldpassword, user.password);
+                if (validity) {
+                    const salt = await bcrypt.genSalt(10);
+                    req.body.password = await bcrypt.hash(newpassword, salt);
+                    const user_new = await UserModel.findByIdAndUpdate(id, req.body, { new: true });
+                    res.status(200).json(user_new);
+                } else { res.status(400).json("Wrong password"); }
+            }
+
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    } else {
+        res.status(403).json("no user");
+    }
+};

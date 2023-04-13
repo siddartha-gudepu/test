@@ -12,23 +12,39 @@ const Signup=()=>{
         setdata({...data,[e.target.name]:e.target.value});
         console.log(data);
     }    
-    const handleSignup=(e)=>{
+
+    const handleSignup = (e) => {
         e.preventDefault();
-            console.log("Request sent")
-            if (data.password===data.confirmpassword){
-            axios.post("http://localhost:5000/signup",data).then(function(response){
-                console.log("Request sent")
+        
+        const uppercaseRegex = /(?=.*[A-Z])/;
+        const numberRegex = /(?=.*\d)/;
+        const specialCharRegex = /(?=.*[!@#$%^&*()\-_=+{};:,<.>/?[\]`~|\\])/;
+        
+        if (data.password === data.confirmpassword) {
+          if (
+            data.password.length >= 6 &&
+            uppercaseRegex.test(data.password) &&
+            numberRegex.test(data.password) &&
+            specialCharRegex.test(data.password)
+          ) {
+            axios.post("http://localhost:5000/signup", data)
+              .then(function(response) {
+                console.log("Request sent");
                 console.log(response.data);
                 // setuser(response.data);
-            }).catch((err)=>{
+              })
+              .catch((err) => {
                 console.log(err);
-            })
+              });
+          } else {
+            console.log("Password must be at least 6 characters with at least 1 uppercase, 1 numerical, and 1 special character");
+          }
+        } else {
+          console.log("Confirm password is wrong");
         }
-        else{
-            console.log("confirm password is wrong");
-        }
+      };
+      
 
-    }
     return (
         <div className='Signup'>
             <div className='a-left'>
@@ -52,7 +68,7 @@ const Signup=()=>{
                         <input type="password" placeholder='Confirm Password' className='infoinput' name='confirmpassword' onChange={handleChange}/>
                     </div>
                     <div>
-                        <span style={{fontSize:"12px"}}>Already have an account. Login!</span>
+                        <span style={{fontSize:"12px"}}>Already have an account?. Login!</span>
                     </div>
                     <button className='button infobutton' type="submit">SignUp</button>
                 </form>
